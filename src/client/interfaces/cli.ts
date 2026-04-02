@@ -15,7 +15,9 @@ export const startCLI = (chat: any) => {
       }
       if (trimmed) {
         const response = await chat.run(trimmed);
-        console.log(`\nAssistant : ${response}\n`);
+        if (response) {
+          console.log(`\nAssistant : ${response}\n`);
+        }
       }
       prompt();
     });
