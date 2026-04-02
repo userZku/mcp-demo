@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Assistant IA</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; }
+  #chat { margin-top: 20px; }
+  .user { color: blue; }
+  .assistant { color: green; }
+</style>
+</head>
+<body>
+<h1>Assistant IA</h1>
+<input id="input" type="text" placeholder="Tapez votre message" />
+<button onclick="send()">Envoyer</button>
+<div id="chat"></div>
+
+<script>
+async function send() {
+  const input = document.getElementById("input").value;
+  if(!input) return;
+
+  const res = await fetch("/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: input })
+  });
+
+  const data = await res.json();
+  const chatDiv = document.getElementById("chat");
+
+  chatDiv.innerHTML += `<p class="user"><b>Vous:</b> ${input}</p>`;
+  chatDiv.innerHTML += `<p class="assistant"><b>IA:</b> ${data.response}</p>`;
+
+  document.getElementById("input").value = "";
+}
+</script>
+</body>
+</html>
