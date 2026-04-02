@@ -1,0 +1,5 @@
+heure = "30/03/2026 16:10:13"
+conditions = "Couvert"
+temperature = "19.2°C (ressentie 16.8°C)"
+humidite = "26%"
+vent = "6.7 km/h"
