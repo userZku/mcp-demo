@@ -14,10 +14,8 @@ export const startCLI = (chat: any) => {
         return;
       }
       if (trimmed) {
-        const response = await chat.run(trimmed);
-        if (response) {
-          console.log(`\nAssistant : ${response}\n`);
-        }
+        // cliChat affiche déjà la réponse, rien à faire ici
+        await chat.run(trimmed);
       }
       prompt();
     });
