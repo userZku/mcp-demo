@@ -70,7 +70,7 @@ export const createChat = (client: any, tools: any[]) => {
     if (!toolCallsResponse?.tool_calls?.length) {
       process.stdout.write(`\nAssistant : ${fullContent}\n\n`);
       messages.push({ role: "assistant", content: fullContent });
-      return null;
+      return fullContent;
     }
 
     // Tool calls
@@ -102,7 +102,7 @@ export const createChat = (client: any, tools: any[]) => {
     process.stdout.write("\n\n");
 
     messages.push({ role: "assistant", content: finalContent });
-    return null;
+    return finalContent;
   };
 
   return { run };
