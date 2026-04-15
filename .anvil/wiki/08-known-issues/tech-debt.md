@@ -85,7 +85,18 @@ No `.env` or config loader detected. Hardcoded values throughout:
 
 **Recommendation:** Add dotenv and config file.
 
+### Chat Persistence — Memory Loading
+**Severity:** 🟢 Low | **Status:** confirmed | **Effort:** Low-Medium
+
+[src/client/services/conversation.service.ts](../../src/client/services/conversation.service.ts) loads all messages from a conversation into memory at once.
+
+**Current behavior:** Works fine for typical chat sessions (< 10K messages)  
+**Potential issue:** Very long conversation histories could exceed available RAM  
+
+**Future improvement:** Implement pagination or streaming load for large conversations.
+
 ## See Also
 
 - [02-architecture/overview.md](../02-architecture/overview.md) — Architecture concerns
 - [06-conventions/coding-style.md](../06-conventions/coding-style.md) — Code quality
+
