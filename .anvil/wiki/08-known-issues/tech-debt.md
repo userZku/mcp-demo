@@ -95,8 +95,22 @@ No `.env` or config loader detected. Hardcoded values throughout:
 
 **Future improvement:** Implement pagination or streaming load for large conversations.
 
+### System Prompt Simplification
+**Severity:** 🟢 Low | **Status:** confirmed | **Effort:** Done
+
+**Issue:** The original system prompt was too complex and caused Ollama models (qwen3:8b) to generate JSON text instead of actual tool calls.
+
+**Fix Applied:** Simplified system prompt in [src/client/core/chatCore.ts](../../src/client/core/chatCore.ts) with:
+- Clear examples of when to use each tool (get_time, read_file, etc.)
+- Explicit instruction to refuse personal questions politely
+- Removed confusing restrictions that contradicted the goal
+- Reduced overall prompt length
+
+**Status:** ✅ Fixed in commit `d1d2fa8`
+
 ## See Also
 
+- [04-features/README.md](../04-features/README.md) — Implemented features
 - [02-architecture/overview.md](../02-architecture/overview.md) — Architecture concerns
 - [06-conventions/coding-style.md](../06-conventions/coding-style.md) — Code quality
 

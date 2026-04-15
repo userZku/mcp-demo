@@ -53,16 +53,19 @@ Evidence:
 - [src/server/tools/external/weather.ts](../../src/server/tools/external) — Weather tool
 
 ### 7. Service Layer
-**External service integrations**
+**External service integrations and persistence**
 
 - [src/server/services/file.service.ts](../../src/server/services) — File I/O safety layer
 - [src/server/services/weather.service.ts](../../src/server/services) — Weather API client (OpenMeteo)
+- [src/client/services/conversation.service.ts](../../src/client/services) — SQLite conversation persistence (load, save, list, delete)
+- [src/server/services/conversation.service.ts](../../src/server/services) — Backend conversation service (prepared for future multi-user)
 
 ## Key Patterns
 
 - **Separation of Concerns:** Chat logic (chatCore) is independent of transport (CLI vs Web)
 - **Tool Abstraction:** Tools defined once in server, adapted to Ollama format on client
 - **Streaming:** Responses stream from Ollama → chatCore → interface
+- **Persistence:** Conversations saved to SQLite after each interaction, shared between CLI and Web
 - **Error Handling:** ⚠ to-confirm — Some tools return `isError: true`, others throw. See [08-known-issues](../08-known-issues/tech-debt.md#error-handling-inconsistency).
 
 ## See Also
