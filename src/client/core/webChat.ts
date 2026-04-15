@@ -79,6 +79,29 @@ export const createWebChat = (client: any, tools: any[]) => {
     };
   };
 
+  const deleteConversation = (conversationId: string) => {
+    const deleted = clientConversationService.deleteConversation(conversationId);
+
+    if (!deleted) {
+      return {
+        deleted: false,
+        id: currentConversationId,
+        messages: currentCore.messages,
+      };
+    }
+
+    if (conversationId === currentConversationId) {
+      const next = clientConversationService.loadConversation();
+      switchToConversation(next?.id ?? null);
+    }
+
+    return {
+      deleted: true,
+      id: currentConversationId,
+      messages: currentCore.messages,
+    };
+  };
+
   const getCurrentConversationId = () => currentConversationId;
 
   return {
@@ -87,6 +110,7 @@ export const createWebChat = (client: any, tools: any[]) => {
     getConversationMessages,
     createNewConversation,
     selectConversation,
+    deleteConversation,
     getCurrentConversationId,
   };
 };

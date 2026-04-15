@@ -79,6 +79,13 @@ body {
   color: #9b765c;
 }
 
+.conversation-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: stretch;
+}
+
 .conversation-item {
   width: 100%;
   text-align: left;
@@ -106,6 +113,25 @@ body {
 .conversation-subtitle {
   font-size: 12px;
   color: #956646;
+}
+
+.conversation-delete {
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid #d8b79c;
+  background: #fff;
+  color: #7a3f1f;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 100%;
+}
+
+.conversation-delete:hover:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+  border-color: #bb5c2a;
+  color: #bb5c2a;
+  background: #fff3ea;
 }
 
 .chat-panel {

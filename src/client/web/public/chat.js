@@ -101,6 +101,9 @@ function renderConversationList() {
   }
 
   conversations.forEach((conversation) => {
+    const row = document.createElement("div");
+    row.className = "conversation-row";
+
     const item = document.createElement("button");
     item.type = "button";
     item.className = "conversation-item";
@@ -117,8 +120,40 @@ function renderConversationList() {
       await selectConversation(conversation.id);
     });
 
-    conversationList.appendChild(item);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "conversation-delete";
+    deleteBtn.title = "Supprimer cette conversation";
+    deleteBtn.textContent = "Suppr.";
+    deleteBtn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      await deleteConversation(conversation.id);
+    });
+
+    row.appendChild(item);
+    row.appendChild(deleteBtn);
+    conversationList.appendChild(row);
   });
+}
+
+async function deleteConversation(conversationId) {
+  const confirmed = window.confirm("Supprimer cette conversation de l'historique ?");
+  if (!confirmed) return;
+
+  try {
+    const res = await fetch(`/conversations/${encodeURIComponent(conversationId)}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw new Error("Impossible de supprimer cette conversation");
+
+    const data = await res.json();
+    activeConversationId = data.id;
+
+    await loadConversations();
+    renderHistory(data.messages || []);
+  } catch (error) {
+    addError(error.message || "Erreur de suppression de conversation");
+  }
 }
 
 function renderHistory(messages) {

@@ -36,6 +36,12 @@ export const startWebServer = (chat: any) => {
     res.json(data);
   });
 
+  app.delete("/conversations/:id", (req, res) => {
+    const { id } = req.params;
+    const data = chat.deleteConversation(id);
+    res.json(data);
+  });
+
   app.listen(3000, () => {
     console.log("🌐 Web UI running at http://localhost:3000");
   });
