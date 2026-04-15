@@ -1,0 +1,109 @@
+{
+  "version": 2,
+  "agent": "copilot",
+  "preset": null,
+  "marketplaces": {
+    "official": {
+      "kind": "git",
+      "enabled": true,
+      "priority": 0,
+      "remote": "https://github.com/FR-NAN-AI/anvil-marketplace.git",
+      "ref": "main"
+    }
+  },
+  "components": {
+    "skills": {
+      "onboarding": {
+        "marketplace": "official",
+        "catalogPath": "skills/onboarding",
+        "hash": "f14c1e787cb06e1d6d1148479ccb4b636ce6a5213bb02f30f54fb14c54c242bf",
+        "customized": false
+      },
+      "anvil-cli-reference": {
+        "marketplace": "official",
+        "catalogPath": "skills/anvil-cli-reference",
+        "hash": "cf028f59af665192fc644021c8541171d780327677f8cec9f646c464a1f2a3e4",
+        "customized": false
+      },
+      "catalog-browser": {
+        "marketplace": "official",
+        "catalogPath": "skills/catalog-browser",
+        "hash": "38ef93a853280842e0ff349f4af5b5dab8903fb6344600e18c805ae4bced971d",
+        "customized": false
+      },
+      "coding-principles": {
+        "marketplace": "official",
+        "catalogPath": "skills/coding-principles",
+        "hash": "234dcbcd4279ddebd23d21ff969e86a29f39e2571e0f4d905c719b63089d48b8",
+        "customized": false,
+        "installedAt": "2026-04-15T10:02:13.248Z",
+        "updatedAt": "2026-04-15T10:02:13.248Z"
+      },
+      "test-driven-development": {
+        "marketplace": "official",
+        "catalogPath": "skills/test-driven-development",
+        "hash": "50f1b8c78b336857c0a2b074cec38514e73155e14ba51275f6428ead600d1650",
+        "customized": false,
+        "installedAt": "2026-04-15T10:02:13.443Z",
+        "updatedAt": "2026-04-15T10:02:13.443Z"
+      },
+      "implement-feature": {
+        "marketplace": "official",
+        "catalogPath": "skills/implement-feature",
+        "hash": "5e19d85394d82a7d164aa2b4f6313d41494aa8906cf3b1e83c4b0fbd69808181",
+        "customized": false,
+        "installedAt": "2026-04-15T10:02:13.631Z",
+        "updatedAt": "2026-04-15T10:02:13.631Z"
+      },
+      "verification-before-completion": {
+        "marketplace": "official",
+        "catalogPath": "skills/verification-before-completion",
+        "hash": "9f258699848c62535259628a59e4c5dea51e82c7f71a57f0fd5ce4e4f8bee5b1",
+        "customized": false,
+        "installedAt": "2026-04-15T10:02:13.810Z",
+        "updatedAt": "2026-04-15T10:02:13.810Z"
+      },
+      "analyze-codebase-deep": {
+        "marketplace": "official",
+        "catalogPath": "skills/analyze-codebase-deep",
+        "hash": "533bc2c1c47fc317d67c72da0a9354c04c846cf1c6498f4c224864dc02b8dc3d",
+        "customized": false,
+        "installedAt": "2026-04-15T10:04:19.377Z",
+        "updatedAt": "2026-04-15T10:04:19.377Z"
+      },
+      "generate-project-wiki": {
+        "marketplace": "official",
+        "catalogPath": "skills/generate-project-wiki",
+        "hash": "6fe7f5c1aa3c360688c72125bd02aa906b8311d29ec65342d1eb7a799e673134",
+        "customized": false,
+        "installedAt": "2026-04-15T11:30:26.575Z",
+        "updatedAt": "2026-04-15T11:30:26.575Z"
+      },
+      "generate-runnable-readme": {
+        "marketplace": "official",
+        "catalogPath": "skills/generate-runnable-readme",
+        "hash": "0474b8977e3f27af240a4c8488fe664b9d621704549fd84ba5c9422a0ee649a7",
+        "customized": false,
+        "installedAt": "2026-04-15T11:30:44.100Z",
+        "updatedAt": "2026-04-15T11:30:44.100Z"
+      }
+    },
+    "recipes": {},
+    "hooks": {},
+    "agents": {
+      "legacy-cartographer": {
+        "marketplace": "official",
+        "catalogPath": "agents/legacy-cartographer",
+        "hash": "c22b6abdd4a310a22433a130ea9aa61d97923b683ce2990e4c03e925bc90dad6",
+        "customized": false,
+        "installedAt": "2026-04-15T10:04:07.135Z",
+        "updatedAt": "2026-04-15T10:04:07.135Z"
+      }
+    },
+    "workflows": {}
+  },
+  "promotions": {},
+  "overrides": {},
+  "onboarded": true,
+  "onboardedAt": "2026-04-15T10:15:00Z"
+}

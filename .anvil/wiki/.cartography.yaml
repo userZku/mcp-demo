@@ -1,0 +1,411 @@
+version: 1
+generatedAt: "2026-04-15T00:00:00Z"
+generatedFromCommit: "unknown"
+shallow: false
+
+inventory:
+  totalFiles: 24
+  totalLOC: 1200
+  primaryLanguages:
+    - language: TypeScript
+      loc: 950
+      percentage: 79.2
+    - language: JavaScript
+      loc: 150
+      percentage: 12.5
+    - language: JSON
+      loc: 100
+      percentage: 8.3
+  buildManifests:
+    - path: package.json
+      type: npm
+    - path: src/client/package.json
+      type: npm
+    - path: src/server/package.json
+      type: npm
+    - path: tsconfig.json
+      type: typescript
+    - path: src/client/tsconfig.json
+      type: typescript
+    - path: src/server/tsconfig.json
+      type: typescript
+
+topology:
+  modules:
+    - name: client
+      path: src/client
+      role: entrypoint
+      importedBy: 0
+      imports: 5
+      confidence: certain
+    - name: client-mcp
+      path: src/client/mcp/client.ts
+      role: central
+      importedBy: 1
+      imports: 2
+      confidence: certain
+    - name: client-chatCore
+      path: src/client/core/chatCore.ts
+      role: central
+      importedBy: 2
+      imports: 1
+      confidence: certain
+    - name: client-cliChat
+      path: src/client/core/cliChat.ts
+      role: central
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: client-webChat
+      path: src/client/core/webChat.ts
+      role: central
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: client-tools
+      path: src/client/core/tools.ts
+      role: leaf
+      importedBy: 1
+      imports: 0
+      confidence: certain
+    - name: client-ollama
+      path: src/client/llm/ollama.ts
+      role: leaf
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: client-cli
+      path: src/client/interfaces/cli.ts
+      role: leaf
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: client-web
+      path: src/client/interfaces/web.ts
+      role: leaf
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: server
+      path: src/server
+      role: entrypoint
+      importedBy: 0
+      imports: 2
+      confidence: certain
+    - name: server-mcp
+      path: src/server/mcp.ts
+      role: central
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: server-tools
+      path: src/server/tools/tools.ts
+      role: central
+      importedBy: 1
+      imports: 5
+      confidence: certain
+    - name: server-fileService
+      path: src/server/services/file.service.ts
+      role: leaf
+      importedBy: 2
+      imports: 1
+      confidence: certain
+    - name: server-weatherService
+      path: src/server/services/weather.service.ts
+      role: leaf
+      importedBy: 1
+      imports: 0
+      confidence: certain
+    - name: tool-readFile
+      path: src/server/tools/file/readFile.ts
+      role: leaf
+      importedBy: 1
+      imports: 2
+      confidence: certain
+    - name: tool-writeFile
+      path: src/server/tools/file/writeFile.ts
+      role: leaf
+      importedBy: 1
+      imports: 2
+      confidence: certain
+    - name: tool-weather
+      path: src/server/tools/external/weather.ts
+      role: leaf
+      importedBy: 1
+      imports: 2
+      confidence: certain
+    - name: tool-add
+      path: src/server/tools/math/add.ts
+      role: leaf
+      importedBy: 1
+      imports: 1
+      confidence: certain
+    - name: tool-getTime
+      path: src/server/tools/system/getTime.ts
+      role: leaf
+      importedBy: 1
+      imports: 0
+      confidence: certain
+  cycles: []
+  entryPoints:
+    - path: src/client/index.ts
+      type: main
+      confidence: certain
+      sourceFile: src/client/index.ts
+    - path: src/server/index.ts
+      type: http-controller
+      confidence: certain
+      sourceFile: src/server/index.ts
+
+patterns:
+  architecturalStyle: client-server
+  styleConfidence: certain
+  styleEvidence:
+    - src/client/index.ts (runs MCP client connecting to HTTP server)
+    - src/server/index.ts (exposes HTTP endpoint /mcp for transport)
+    - src/server/mcp.ts (MCP server factory instantiated in src/server/index.ts)
+    - src/client/mcp/client.ts (MCP client factory connecting via HTTP)
+  layers:
+    - name: entrypoint
+      description: Application orchestration and startup
+      paths:
+        - src/client/index.ts
+        - src/server/index.ts
+    - name: mcp-protocol
+      description: MCP client/server implementations
+      paths:
+        - src/client/mcp/client.ts
+        - src/server/mcp.ts
+    - name: chat-core
+      description: AI chat logic independent of UI
+      paths:
+        - src/client/core/chatCore.ts
+        - src/client/core/cliChat.ts
+        - src/client/core/webChat.ts
+    - name: interface
+      description: UI layer - CLI or Web
+      paths:
+        - src/client/interfaces/cli.ts
+        - src/client/interfaces/web.ts
+    - name: llm-integration
+      description: LLM model communication (Ollama)
+      paths:
+        - src/client/llm/ollama.ts
+        - src/client/core/tools.ts
+    - name: tool-definitions
+      description: MCP tool specifications
+      paths:
+        - src/server/tools/tools.ts
+        - src/server/tools/file/readFile.ts
+        - src/server/tools/file/writeFile.ts
+        - src/server/tools/math/add.ts
+        - src/server/tools/system/getTime.ts
+        - src/server/tools/external/weather.ts
+    - name: service-layer
+      description: External service integrations
+      paths:
+        - src/server/services/file.service.ts
+        - src/server/services/weather.service.ts
+  externalIntegrations:
+    - kind: http-api
+      target: https://api.open-meteo.com/v1/forecast (weather data)
+      sourceFile: src/server/services/weather.service.ts
+      lineRange:
+        start: 11
+        end: 13
+      confidence: certain
+    - kind: http-api
+      target: https://geocoding-api.open-meteo.com/v1/search (geo lookup)
+      sourceFile: src/server/services/weather.service.ts
+      lineRange:
+        start: 1
+        end: 4
+      confidence: certain
+    - kind: sdk
+      target: "@modelcontextprotocol/sdk (MCP protocol)"
+      sourceFile: src/client/mcp/client.ts
+      confidence: certain
+    - kind: sdk
+      target: "@modelcontextprotocol/sdk (MCP protocol)"
+      sourceFile: src/server/mcp.ts
+      confidence: certain
+    - kind: sdk
+      target: "ollama (local LLM inference)"
+      sourceFile: src/client/llm/ollama.ts
+      lineRange:
+        start: 1
+        end: 7
+      confidence: certain
+    - kind: http-server
+      target: "Express.js for Web UI"
+      sourceFile: src/client/interfaces/web.ts
+      lineRange:
+        start: 1
+        end: 5
+      confidence: certain
+  techDebtMarkers:
+    - file: src/client/core/chatCore.ts
+      line: 7
+      kind: code-smell
+      text: "any type usage - no type safety for client/tools parameters"
+      confidence: to-confirm
+    - file: src/client/core/cliChat.ts
+      line: 7
+      kind: code-smell
+      text: "any type usage - no type safety for client/tools parameters"
+      confidence: to-confirm
+    - file: src/client/core/webChat.ts
+      line: 7
+      kind: code-smell
+      text: "any type usage - no type safety for client/tools parameters"
+      confidence: to-confirm
+    - file: src/client/interfaces/cli.ts
+      line: 3
+      kind: code-smell
+      text: "any type usage for chat parameter"
+      confidence: to-confirm
+    - file: src/client/interfaces/web.ts
+      line: 3
+      kind: code-smell
+      text: "any type usage for chat parameter"
+      confidence: to-confirm
+
+semantic:
+  centralFilesAnalyzed:
+    - path: src/client/index.ts
+      role: "Application entry point for chat client. Orchestrates MCP client connection, tool adaptation for Ollama, and routing between CLI and Web UI based on command-line args."
+      domainTerms:
+        - mcpClient
+        - ollamaTools
+        - chat
+        - isCliMode
+    - path: src/client/mcp/client.ts
+      role: "Factory function that creates and initializes an MCP client with HTTP transport. Connects to the MCP server at http://localhost:3001/mcp."
+      domainTerms:
+        - createMcpClient
+        - StreamableHTTPClientTransport
+        - MCP transport layer
+    - path: src/client/core/chatCore.ts
+      role: "Core chat engine independent of UI transport. Maintains conversation history, interfaces with LLM (Ollama), handles tool calling sequences, and manages streaming responses."
+      domainTerms:
+        - createChatCore
+        - messages
+        - toolCalls
+        - chatWithModelStream
+        - agentic loop
+    - path: src/client/core/cliChat.ts
+      role: "CLI-specific chat wrapper. Wraps chatCore and adds console output formatting for thinking, tool calls, and responses."
+      domainTerms:
+        - createCLIChat
+        - toolCalls display
+        - thinking reflection
+    - path: src/client/core/webChat.ts
+      role: "Web-specific chat wrapper. Minimalist wrapper around chatCore returning only the final response for HTTP consumption."
+      domainTerms:
+        - createWebChat
+        - minimal response
+    - path: src/client/llm/ollama.ts
+      role: "Ollama LLM client initialization and request builders. Provides streaming and non-streaming chat methods with MCP tool support. Hardcoded model references."
+      domainTerms:
+        - chatWithModel
+        - chatWithModelStream
+        - Ollama
+        - qwen3:8b model
+    - path: src/client/interfaces/cli.ts
+      role: "CLI readline interface. Prompts for user input in loop and dispatches to chat engine."
+      domainTerms:
+        - startCLI
+        - readline
+    - path: src/client/interfaces/web.ts
+      role: "Express.js HTTP server for Web UI. Serves index.html and exposes /chat endpoint for frontend requests."
+      domainTerms:
+        - startWebServer
+        - /chat endpoint
+        - Express
+    - path: src/server/index.ts
+      role: "Server entry point. Creates HTTP server listening on port 3001/mcp, instantiates MCP server and StreamableHTTPServerTransport for each request."
+      domainTerms:
+        - httpServer
+        - StreamableHTTPServerTransport
+        - MCP server connection
+    - path: src/server/mcp.ts
+      role: "MCP server factory. Instantiates McpServer and registers all tool definitions. Tool registration extracts name, description, and input schema."
+      domainTerms:
+        - createMcpServer
+        - registerTool
+        - tool registry
+    - path: src/server/tools/tools.ts
+      role: "Tool aggregator. Exports array of all available tools: time, add, file I/O, weather."
+      domainTerms:
+        - tools array
+        - tool composition
+    - path: src/server/services/file.service.ts
+      role: "File I/O safety layer. Provides async read/write abstractions with path resolution and error handling. Supports append mode for write operations."
+      domainTerms:
+        - readFileSafe
+        - writeFileSafe
+        - path.resolve
+    - path: src/server/services/weather.service.ts
+      role: "Weather API client. Fetches geocoding and forecast data from OpenMeteo. Maps city name to coordinates, retrieves current temperature."
+      domainTerms:
+        - getWeather
+        - OpenMeteo API
+        - geocoding
+        - forecast
+    - path: src/server/tools/file/readFile.ts
+      role: "MCP tool definition for file reading. Wraps file.service.ts readFileSafe with Zod input validation and MCP response format."
+      domainTerms:
+        - readFileTool
+        - file reading capability
+        - Zod schema
+    - path: src/server/tools/file/writeFile.ts
+      role: "MCP tool definition for file writing. Wraps file.service.ts writeFileSafe with Zod input validation and append flag. Creates directories as needed."
+      domainTerms:
+        - writeFileTool
+        - file writing capability
+        - append mode
+    - path: src/server/tools/math/add.ts
+      role: "MCP tool for arithmetic. Simple tool that adds two numbers. Uses Zod for input validation."
+      domainTerms:
+        - addTool
+        - arithmetic operation
+    - path: src/server/tools/system/getTime.ts
+      role: "MCP tool that returns current system time in French locale."
+      domainTerms:
+        - getTimeTool
+        - system clock
+    - path: src/server/tools/external/weather.ts
+      role: "MCP tool for weather queries. Wraps weather.service.ts with Zod input validation and MCP response format."
+      domainTerms:
+        - weatherTool
+        - weather capability
+    - path: src/client/core/tools.ts
+      role: "Tool adapter. Transforms MCP tool definitions to Ollama function calling format for LLM consumption."
+      domainTerms:
+        - mapToolsToOllama
+        - tool format conversion
+  domainTerms:
+    - MCP (Model Context Protocol)
+    - Ollama (local LLM inference)
+    - chat agent
+    - tool calling / agentic loop
+    - streamable transport
+    - geocoding / weather data
+    - file I/O constraints
+    - tool registry
+
+gitInsights: {}
+
+warnings:
+  - |-
+    Type Safety Issue: Heavy use of `any` in chat interface layers (src/client/core/chatCore.ts, src/client/core/cliChat.ts, src/client/core/webChat.ts, src/client/interfaces/cli.ts, src/client/interfaces/web.ts). Client/tools parameters lack type annotations. Recommend defining typed interfaces.
+  - |-
+    Hardcoded Model Reference: src/client/llm/ollama.ts line 22 uses hardcoded model name "qwen3:8b". Configuration should be externalized for flexibility.
+  - |-
+    Circular Architecture Risk: Client talks to Server via MCP over HTTP (src/client/mcp/client.ts → http://localhost:3001/mcp), while Server runs in same process context. No clear deployment boundary documented.
+  - |-
+    Error Handling Inconsistency: Some tools return isError: true (readFile, writeFile, weather), others throw exceptions. Normalize error handling pattern.
+  - |-
+    Web Assets Path Hardcoded: src/client/interfaces/web.ts line 5 uses hardcoded path "web/public" for static assets. Relative path may fail if run from different directory.
+  - |-
+    Missing Schema Definitions: Multiple tools use incomplete Zod schemas (readFile.ts inputSchema only has filepath: z.string() without properties wrapper). Verify OpenAPI/MCP schema compliance.
