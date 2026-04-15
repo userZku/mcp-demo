@@ -1,51 +1,65 @@
 # mcp-demo
 
-Assistant IA outille avec MCP, en TypeScript, avec une interface Web et un mode CLI.
+Assistant IA outillé avec MCP, en TypeScript, avec une interface Web et un mode CLI.
 
-## Ce que propose le projet
+## 🚀 Démarrage rapide
 
-- Conversation avec un modele local via Ollama
-- Utilisation d'outils MCP pendant le chat (fichiers, meteo, calcul, systeme)
-- Interface Web prete a l'emploi
+**Pour une documentation complète, consultez [le wiki Anvil](.anvil/wiki/index.md)**
+
+### Installation
+
+```bash
+npm install
+npm run dev
+```
+
+Accédez à http://localhost:3000 pour l'interface Web.
+
+## 📚 Documentation
+
+Pour plus de détails, consultez le **[Wiki Anvil](.anvil/wiki/index.md)**:
+
+- **[Getting Started](.anvil/wiki/01-getting-started/README.md)** — Installation, prérequis, lancement
+- **[Architecture](.anvil/wiki/02-architecture/overview.md)** — Design système et modules
+- **[Stack Technologique](.anvil/wiki/03-stack/languages.md)** — Technologies utilisées
+- **[Features](.anvil/wiki/04-features/README.md)** — Fonctionnalités implémentées
+- **[Conventions](.anvil/wiki/06-conventions/coding-style.md)** — Standards de code
+- **[Operations](.anvil/wiki/07-operations/build-and-deploy.md)** — Build et déploiement
+- **[Issues Connues](.anvil/wiki/08-known-issues/tech-debt.md)** — Problèmes et améliorations futures
+
+## ✨ Fonctionnalités
+
+- Chat avec modèle local via Ollama
+- Utilisation d'outils MCP pendant le chat (fichiers, météo, calcul, système)
+- **Persistance des conversations** en SQLite (CLI et Web)
+- **Gestion des conversations** — Historique, sélection, suppression
+- Interface Web prête à l'emploi avec sidebar
 - Mode CLI pour usage terminal
+- Streaming des réponses en temps réel
 
-## Technologies utilisees
+## 🛠 Technologies
 
-- Node.js
-- TypeScript
-- MCP SDK (`@modelcontextprotocol/sdk`)
-- Ollama
-- Express
-- tsx
-- concurrently
+- Node.js • TypeScript • MCP SDK
+- Ollama • Express • SQLite (better-sqlite3)
+- tsx • concurrently
 
-## Prerequis
+## 📋 Prérequis
 
-1. Node.js 18+
-2. Ollama installe et en cours d'execution
-3. Modele Ollama disponible (exemple: `qwen3:8b`)
+1. **Node.js 18+**
+2. **Ollama** installé et en cours d'exécution
+3. **Modèle Ollama** disponible
 
 ```bash
 ollama pull qwen3:8b
 ```
 
-## Installation
+## 🎯 Lancement
 
-```bash
-npm install
-```
-
-## Lancement
-
-### Mode Web (recommande)
-
-Lance le serveur MCP et le client web en parallele:
+### Mode Web (recommandé)
 
 ```bash
 npm run dev
 ```
-
-Puis ouvrir:
 
 - Web UI: http://localhost:3000
 - MCP Server: http://localhost:3001/mcp
@@ -53,13 +67,15 @@ Puis ouvrir:
 ### Mode CLI
 
 Terminal 1:
-
 ```bash
 npm run dev -w src/server
 ```
 
 Terminal 2:
-
 ```bash
 npm run dev -w src/client -- --cli
 ```
+
+---
+
+**Voir [Getting Started](.anvil/wiki/01-getting-started/README.md) pour les détails complets.**
