@@ -1,14 +1,36 @@
 import { createChatCore } from "./chatCore.js";
+import { clientConversationService } from "../services/conversation.service.js";
+import crypto from "crypto";
 
 /**
  * Chat optimisé pour CLI avec affichages console détaillés
  */
-export const createCLIChat = (client: any, tools: any[]) => {
+export const createCLIChat = (client: any, tools: any[], selectedConversationId: string | null = null) => {
+  // ID fourni par le menu de sélection, ou génère un nouvel ID
+  const conversationId = selectedConversationId ?? `chat-${crypto.randomBytes(4).toString("hex")}`;
+
+  // Charge la conversation existante si elle existe
+  const existingConversation = selectedConversationId
+    ? clientConversationService.loadConversation(conversationId)
+    : null;
+
   const { run: coreRun, messages } = createChatCore(client, tools);
+
+  // Si on a une conversation existante, restaure les messages
+  if (existingConversation) {
+    console.log(`📖 Conversation restaurée — ${existingConversation.messages.length - 1} messages (ID: ${conversationId})\n`);
+    messages.splice(1); // Garde le message système à index 0
+    messages.push(...existingConversation.messages.slice(1));
+  } else {
+    console.log(`🆕 Nouvelle conversation (ID: ${conversationId})\n`);
+  }
 
   const run = async (userInput: string) => {
     // Lance la logique core
     const { response, thinking, toolCalls } = await coreRun(userInput);
+
+    // Sauvegarde la conversation après chaque interaction
+    clientConversationService.saveConversation(conversationId, messages);
 
     // Affichage CLI détaillé
     if (thinking) {

@@ -2,7 +2,7 @@ import { createMcpClient } from "./mcp/client.js";
 import { mapToolsToOllama } from "./core/tools.js";
 import { createCLIChat } from "./core/cliChat.js";
 import { createWebChat } from "./core/webChat.js";
-import { startCLI } from "./interfaces/cli.js";
+import { startCLI, selectConversation } from "./interfaces/cli.js";
 import { startWebServer } from "./interfaces/web.js";
 
 (async () => {
@@ -15,8 +15,9 @@ import { startWebServer } from "./interfaces/web.js";
   const isCliMode = process.argv.includes("--cli");
 
   if (isCliMode) {
-    // Mode CLI : utiliser le chat avec affichages détaillés
-    const chat = createCLIChat(mcpClient, ollamaTools);
+    // Mode CLI : affiche le menu de sélection de conversation
+    const selectedId = await selectConversation();
+    const chat = createCLIChat(mcpClient, ollamaTools, selectedId);
     startCLI(chat);
   } else {
     // Mode Web (défaut) : utiliser le chat minimaliste
