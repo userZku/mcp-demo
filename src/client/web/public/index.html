@@ -8,25 +8,40 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>🤖 Assistant IA</h1>
-    </div>
-
-    <div id="chat">
-      <div class="empty-state">
-        <p>👋 Bienvenue ! Commencez une conversation...</p>
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Discussions</h2>
+        <button id="newConversationBtn" type="button">+ Nouvelle</button>
       </div>
-    </div>
 
-    <div class="input-area">
-      <input 
-        id="input" 
-        type="text" 
-        placeholder="Tapez votre message..." 
-        autocomplete="off"
-      />
-      <button id="sendBtn" onclick="send()">Envoyer</button>
-    </div>
+      <label for="conversationSelect" class="sidebar-label">Menu rapide</label>
+      <select id="conversationSelect"></select>
+
+      <div id="conversationList" class="conversation-list"></div>
+    </aside>
+
+    <main class="chat-panel">
+      <div class="header">
+        <h1>Assistant IA</h1>
+        <p id="conversationMeta"></p>
+      </div>
+
+      <div id="chat">
+        <div class="empty-state">
+          <p>Bienvenue, choisissez une conversation ou démarrez-en une nouvelle.</p>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <input 
+          id="input" 
+          type="text" 
+          placeholder="Tapez votre message..." 
+          autocomplete="off"
+        />
+        <button id="sendBtn" onclick="send()">Envoyer</button>
+      </div>
+    </main>
   </div>
 
   <script src="chat.js"></script>
